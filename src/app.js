@@ -47,8 +47,6 @@ function formatWeekday(timestamp){
 }
 
 function displayForcast(response){
-    console.log(response.data);
-     
     let forcastElement = document.querySelector("#forcast");
     forcastElement.innerHTML = null;
     let forcast = null;
@@ -98,9 +96,25 @@ function displayCelsiusTemperature(event){
     temperatureElement.innerHTML = Math.round(celsiusTemperature);
 }
 
+function showPosition(position){
+  let latitude = position.coords.latitude;
+  let longitude = position.coords.longitude;
+  let apiKey = "936a50f4c5816a4cf5f3c262e7a4d70f";
+  let apiUrl = `https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&appid=${apiKey}&units=metric`;
+  axios.get(apiUrl).then(displayTemperature);
+  apiUrl = `https://api.openweathermap.org/data/2.5/onecall?lat=${latitude}&lon=${longitude}&exclude=minutely,hourly&appid=${apiKey}&units=metric`;
+  axios.get(apiUrl).then(displayForcast);
+}
+
+function getCurrentPosition(event){
+  event.preventDefault();
+  navigator.geolocation.getCurrentPosition(showPosition);
+}
+
+let button = document.querySelector("button");
+button.addEventListener("click",getCurrentPosition);
 
 let celsiusTemperature = null;
-
 
 let form = document.querySelector("#search-form");
 form.addEventListener("submit", handleSubmit);

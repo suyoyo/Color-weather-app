@@ -121,3 +121,13 @@ li:first-letter {
 .weather-forcast-temp {
   color: rgb(186, 186, 186);
 }
+
+.col-3 {
+  padding-right: 5px;
+  padding-left: 5px;
+}
+
+.col-1 {
+  padding-right: 5px;
+  padding-left: 5px;
+}
