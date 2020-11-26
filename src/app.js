@@ -30,13 +30,39 @@ function displayTemperature(response){
     iconElement.setAttribute("src",`http://openweathermap.org/img/wn/${response.data.weather[0].icon}@2x.png`);
     iconElement.setAttribute("alt",response.data.weather[0].description);
 
-    celsiusTemperature = response.data.main.temp
+    celsiusTemperature = response.data.main.temp;
+
+    let latitude = response.data.coord.lat;
+    let longitude = response.data.coord.lon;
+    let apiKey = "936a50f4c5816a4cf5f3c262e7a4d70f";
+    apiUrl = `https://api.openweathermap.org/data/2.5/onecall?lat=${latitude}&lon=${longitude}&exclude=minutely,hourly&appid=${apiKey}&units=metric`;
+    axios.get(apiUrl).then(displayForcast);
+}
+
+function formatWeekday(timestamp){
+    let date = new Date(timestamp);
+    let days = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+    let day = days[date.getDay()];
+    return `${day}`;
+}
+
+function displayForcast(response){
+    console.log(response.data);
+    let dateElementA = document.querySelector("#weekday-0");
+    dateElementA.innerHTML = formatWeekday(response.data.daily[0].dt*1000);
+    let iconElementA = document.querySelector("#icon-0");
+    iconElementA.setAttribute("src",`http://openweathermap.org/img/wn/${response.data.daily[0].weather[0].icon}@2x.png`);
+    let maxTemperatureElementA = document.querySelector("#maxTemperature-0");
+    maxTemperatureElementA.innerHTML = Math.round(response.data.daily[0].temp.max);
+    let minTemperatureElementA = document.querySelector("#minTemperature-0");
+    minTemperatureElementA.innerHTML = Math.round(response.data.daily[0].temp.min);
+
 }
 
 function search(city){
   let apiKey = "936a50f4c5816a4cf5f3c262e7a4d70f";
   let apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=metric`;
-  axios.get(apiUrl).then(displayTemperature);
+  axios.get(apiUrl).then(displayTemperature); 
 }
 
 function handleSubmit(event){
