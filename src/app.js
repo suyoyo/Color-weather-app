@@ -48,15 +48,25 @@ function formatWeekday(timestamp){
 
 function displayForcast(response){
     console.log(response.data);
-    let dateElementA = document.querySelector("#weekday-0");
-    dateElementA.innerHTML = formatWeekday(response.data.daily[0].dt*1000);
-    let iconElementA = document.querySelector("#icon-0");
-    iconElementA.setAttribute("src",`http://openweathermap.org/img/wn/${response.data.daily[0].weather[0].icon}@2x.png`);
-    let maxTemperatureElementA = document.querySelector("#maxTemperature-0");
-    maxTemperatureElementA.innerHTML = Math.round(response.data.daily[0].temp.max);
-    let minTemperatureElementA = document.querySelector("#minTemperature-0");
-    minTemperatureElementA.innerHTML = Math.round(response.data.daily[0].temp.min);
+     
+    let forcastElement = document.querySelector("#forcast");
+    forcastElement.innerHTML = null;
+    let forcast = null;
 
+    for (let index = 0; index < 6; index++) {
+      forcast = response.data.daily[index];
+      forcastElement.innerHTML +=`
+              <div class="col-2">
+                  <h3>
+                    ${formatWeekday(forcast.dt*1000)}
+                  </h3>
+                  <img src="http://openweathermap.org/img/wn/${forcast.weather[0].icon}@2x.png" alt="${forcast.weather[0].main}">
+                  <div class="weather-forcast-temp">
+                      <strong>${Math.round(forcast.temp.max)}°</strong> ${Math.round(forcast.temp.min)}°
+                  </div>
+              </div>
+    `
+    }
 }
 
 function search(city){

@@ -58,8 +58,8 @@ li:first-letter {
 }
 .weather-temperature img {
   margin-right: 10px;
-  height: 64px;
-  width: 64px;
+  height: 80px;
+  width: 80px;
   float: left;
 }
 .weather-temperature strong {
@@ -91,4 +91,33 @@ li:first-letter {
   height: 15px;
   line-height: 15px;
   text-align: center;
+}
+
+.weather-forcast h3 {
+  color: rgb(186, 186, 186);
+  display: block;
+  font-size: 14px;
+  font-weight: 400;
+  height: 15px;
+  line-height: 15px;
+  padding-top: 7px;
+  text-align: center;
+}
+
+.weather-forcast img {
+  display: block;
+  height: 64px;
+  margin: 1px 4px 0;
+  width: 64px;
+}
+
+.weather-forcast-temp strong {
+  color: rgb(135, 135, 135);
+  font-size: 13px;
+  font-weight: normal;
+  line-height: 15px;
+}
+
+.weather-forcast-temp {
+  color: rgb(186, 186, 186);
 }
